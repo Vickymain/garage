@@ -1,0 +1,155 @@
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+:root {
+  --bg: #0d0d0d;
+  --surface: rgba(255, 255, 255, 0.04);
+  --border: rgba(255, 255, 255, 0.08);
+  --text-primary: #f0f0f0;
+  --text-muted: #888;
+  --font: 'Inter', system-ui, sans-serif;
+}
+
+body {
+  background: var(--bg);
+  color: var(--text-primary);
+  font-family: var(--font);
+  overflow: hidden;
+  height: 100dvh;
+  width: 100dvw;
+}
+
+#garage-canvas {
+  position: fixed;
+  inset: 0;
+  display: block;
+}
+
+#ui-overlay {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  padding: 2rem;
+  gap: 1.5rem;
+}
+
+/* ── Brand nav ─────────────────────────────── */
+#brand-nav {
+  pointer-events: all;
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+}
+
+.brand-tab {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  color: var(--text-muted);
+  padding: 0.5rem 1.25rem;
+  border-radius: 2rem;
+  font-size: 0.8rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.brand-tab:hover {
+  color: var(--text-primary);
+  border-color: var(--accent, #fff);
+}
+
+.brand-tab.active {
+  background: var(--accent, #fff);
+  border-color: var(--accent, #fff);
+  color: #000;
+  font-weight: 600;
+}
+
+/* ── Brand info ─────────────────────────────── */
+#brand-info {
+  align-self: end;
+  pointer-events: all;
+}
+
+#brand-name {
+  font-size: clamp(2rem, 6vw, 5rem);
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  line-height: 1;
+  margin-bottom: 0.4rem;
+}
+
+#brand-tagline {
+  color: var(--text-muted);
+  font-size: 0.9rem;
+  letter-spacing: 0.04em;
+  margin-bottom: 1.5rem;
+}
+
+#category-nav {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.category-pill {
+  background: transparent;
+  border: 1px solid var(--border);
+  color: var(--text-muted);
+  padding: 0.35rem 1rem;
+  border-radius: 2rem;
+  font-size: 0.75rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  pointer-events: all;
+}
+
+.category-pill:hover,
+.category-pill.active {
+  color: var(--text-primary);
+  border-color: rgba(255, 255, 255, 0.4);
+}
+
+/* ── Model panel ─────────────────────────────── */
+#model-panel {
+  pointer-events: all;
+  display: flex;
+  gap: 0.75rem;
+  overflow-x: auto;
+  padding-bottom: 0.5rem;
+}
+
+.model-card {
+  flex-shrink: 0;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 0.75rem;
+  padding: 0.75rem 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+  cursor: pointer;
+  transition: border-color 0.2s ease;
+}
+
+.model-card:hover {
+  border-color: rgba(255, 255, 255, 0.2);
+}
+
+.model-name {
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+
+.model-year {
+  font-size: 0.7rem;
+  color: var(--text-muted);
+}
