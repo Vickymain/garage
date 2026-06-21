@@ -36,22 +36,78 @@ body {
 }
 
 /* ════════════════════════════════════════
+   SITE NAV — sticky top bar
+════════════════════════════════════════ */
+#site-nav {
+  position: sticky;
+  top: 0;
+  z-index: 200;
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  padding: 0 2rem;
+  height: 60px;
+  background: var(--bg);
+  border-bottom: 1px solid var(--border);
+}
+
+#site-wordmark {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 1.6rem;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--text-primary);
+  user-select: none;
+  text-align: center;
+}
+
+/* ── Menu button ── */
+#menu-toggle {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: transparent;
+  border: none;
+  color: var(--text-primary);
+  padding: 0.4rem 0;
+  font-size: 0.8rem;
+  font-family: var(--font);
+  letter-spacing: 0.05em;
+  cursor: pointer;
+  justify-self: start;
+}
+
+#menu-toggle:hover {
+  opacity: 0.6;
+}
+
+/* ── Brand menu dropdown ── */
+#brand-menu {
+  position: fixed;
+  top: 61px;
+  left: 2rem;
+  z-index: 200;
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(-8px);
+  transition: opacity 0.2s ease, transform 0.2s ease;
+}
+
+#brand-menu.open {
+  opacity: 1;
+  pointer-events: all;
+  transform: translateY(0);
+}
+
+/* ════════════════════════════════════════
    SECTION 1 — Brand landing
 ════════════════════════════════════════ */
 #brand-landing {
   position: relative;
-  height: 100vh;
+  height: calc(100vh - 60px);
   display: flex;
   flex-direction: column;
-  padding: 2rem;
-}
-
-/* ── Header row: name + menu ── */
-#landing-header {
-  display: flex;
-  align-items: flex-start;
-  justify-content: space-between;
-  gap: 1rem;
+  padding: 2.5rem 2rem 2rem;
 }
 
 #brand-info {
@@ -72,47 +128,6 @@ body {
   color: var(--text-muted);
   font-size: 0.85rem;
   letter-spacing: 0.03em;
-}
-
-/* ── Menu button ── */
-#menu-toggle {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  background: var(--surface-raised);
-  border: 1px solid var(--border);
-  color: var(--text-primary);
-  padding: 0.55rem 1.1rem;
-  border-radius: 2rem;
-  font-size: 0.8rem;
-  font-family: var(--font);
-  letter-spacing: 0.05em;
-  cursor: pointer;
-  transition: background 0.15s ease, box-shadow 0.15s ease;
-  flex-shrink: 0;
-}
-
-#menu-toggle:hover {
-  background: #fff;
-  box-shadow: 0 2px 12px rgba(0,0,0,0.08);
-}
-
-/* ── Brand menu overlay ── */
-#brand-menu {
-  position: absolute;
-  top: 5rem;
-  right: 2rem;
-  z-index: 100;
-  opacity: 0;
-  pointer-events: none;
-  transform: translateY(-8px);
-  transition: opacity 0.2s ease, transform 0.2s ease;
-}
-
-#brand-menu.open {
-  opacity: 1;
-  pointer-events: all;
-  transform: translateY(0);
 }
 
 #brand-menu-inner {

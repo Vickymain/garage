@@ -39,7 +39,9 @@ export class UIController {
     })
 
     document.addEventListener('click', () => this._closeMenu())
-    document.getElementById('brand-menu').addEventListener('click', (e) => e.stopPropagation())
+    document.getElementById('brand-menu').addEventListener('click', (e) =>
+      e.stopPropagation()
+    )
   }
 
   _openMenu() {
