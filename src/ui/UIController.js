@@ -36,8 +36,8 @@ export class UIController {
 
     document.getElementById('brand-name').textContent = brand.name
     document.getElementById('brand-tagline').textContent = brand.tagline
-    document.getElementById('logo-mark').textContent = brand.logoMark
-    document.getElementById('logo-wordmark').textContent = brand.name
+    const mark = document.getElementById('logo-mark')
+    mark.innerHTML = `<img src="${brand.logo}" alt="${brand.name} logo" />`
     document.documentElement.style.setProperty('--brand-accent', brand.accentColor)
 
     this._buildCategoryNav(brand)

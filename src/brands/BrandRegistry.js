@@ -1,10 +1,11 @@
 import { mercedes } from './mercedes/index.js'
 import { bmw } from './bmw/index.js'
+import { porsche } from './porsche/index.js'
 import { ferrari } from './ferrari/index.js'
 
 export class BrandRegistry {
   constructor() {
-    this.brands = [mercedes, bmw, ferrari]
+    this.brands = [mercedes, bmw, porsche, ferrari]
   }
 
   getAll() {
