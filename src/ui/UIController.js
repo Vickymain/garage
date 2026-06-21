@@ -29,6 +29,7 @@ export class UIController {
     if (!brand) return
 
     this.activeBrand = brand
+    window.scrollTo({ top: 0, behavior: 'smooth' })
 
     document.querySelectorAll('.brand-tab').forEach((btn) => {
       btn.classList.toggle('active', btn.dataset.slug === slug)
@@ -67,10 +68,37 @@ export class UIController {
     })
 
     const panel = document.getElementById('model-panel')
-    panel.innerHTML = cat.models
+    panel.innerHTML = cat.models.map((m) => this._renderModelCard(m)).join('')
+  }
+
+  _renderModelCard(model) {
+    const tags = model.tags
+      .map((t) => `<span class="model-tag">${t}</span>`)
+      .join('')
+
+    const stats = model.stats
       .map(
-        (m) => `<div class="model-card"><span class="model-name">${m.name}</span><span class="model-year">${m.year}</span></div>`
+        (s) => `<div class="model-stat">
+          <span class="stat-value">${s.value}</span>
+          <span class="stat-label">${s.label}</span>
+        </div>`
       )
       .join('')
+
+    return `
+      <div class="model-card">
+        <div class="card-image-slot"></div>
+        <div class="card-body">
+          <div class="card-header">
+            <h3 class="model-name">${model.name}</h3>
+            <p class="model-price">${model.price}</p>
+          </div>
+          <div class="model-tags">
+            <span class="model-tag year-tag">${model.year}</span>
+            ${tags}
+          </div>
+          <div class="model-stats">${stats}</div>
+        </div>
+      </div>`
   }
 }

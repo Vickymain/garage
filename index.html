@@ -9,26 +9,37 @@
   <body>
     <canvas id="garage-canvas"></canvas>
 
-    <div id="brand-logo">
-      <span id="logo-mark"></span>
-    </div>
+    <div id="page">
 
-    <div id="ui-overlay">
-      <nav id="brand-nav">
-        <!-- Brand tabs are injected by JS -->
-      </nav>
+      <!-- ── Section 1: Brand landing (full viewport) ── -->
+      <section id="brand-landing">
+        <nav id="brand-nav"></nav>
 
-      <div id="brand-info">
-        <h1 id="brand-name"></h1>
-        <p id="brand-tagline"></p>
-        <div id="category-nav">
-          <!-- Category pills injected per brand -->
+        <div id="brand-info">
+          <h1 id="brand-name"></h1>
+          <p id="brand-tagline"></p>
         </div>
-      </div>
 
-      <div id="model-panel">
-        <!-- Active model details injected here -->
-      </div>
+        <div id="brand-logo">
+          <span id="logo-mark"></span>
+        </div>
+
+        <div id="scroll-hint">
+          <span>Scroll to explore</span>
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+            <path d="M8 3v10M3 9l5 5 5-5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+      </section>
+
+      <!-- ── Section 2: Models ── -->
+      <section id="models-section">
+        <div id="models-header">
+          <div id="category-nav"></div>
+        </div>
+        <div id="model-panel"></div>
+      </section>
+
     </div>
 
     <script type="module" src="/src/main.js"></script>
