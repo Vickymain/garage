@@ -3,6 +3,7 @@ export const bmw = {
   name: 'BMW',
   tagline: 'The Ultimate Driving Machine.',
   accentColor: '#1C6BBA',
+  logoMark: 'BMW',
   categories: [
     {
       slug: 'sedan',

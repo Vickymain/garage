@@ -36,6 +36,9 @@ export class UIController {
 
     document.getElementById('brand-name').textContent = brand.name
     document.getElementById('brand-tagline').textContent = brand.tagline
+    document.getElementById('logo-mark').textContent = brand.logoMark
+    document.getElementById('logo-wordmark').textContent = brand.name
+    document.documentElement.style.setProperty('--brand-accent', brand.accentColor)
 
     this._buildCategoryNav(brand)
     this._selectCategory(brand.categories[0].slug)

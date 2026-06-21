@@ -3,6 +3,7 @@ export const ferrari = {
   name: 'Ferrari',
   tagline: 'We are the competition.',
   accentColor: '#CC0000',
+  logoMark: '🐎',
   categories: [
     {
       slug: 'gt',

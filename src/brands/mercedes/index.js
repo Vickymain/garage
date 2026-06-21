@@ -3,6 +3,7 @@ export const mercedes = {
   name: 'Mercedes-Benz',
   tagline: 'The best or nothing.',
   accentColor: '#C0C0C0',
+  logoMark: '✦',
   categories: [
     {
       slug: 'sedan',
