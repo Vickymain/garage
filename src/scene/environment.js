@@ -1,15 +1,15 @@
 import * as THREE from 'three'
 
 export function setupEnvironment(scene) {
-  scene.background = new THREE.Color(0x0d0d0d)
-  scene.fog = new THREE.FogExp2(0x0d0d0d, 0.035)
+  scene.background = new THREE.Color(0xf4f4f2)
+  scene.fog = new THREE.FogExp2(0xf4f4f2, 0.03)
 
-  // Garage floor — reflective dark concrete
+  // Garage floor — light polished surface
   const floorGeo = new THREE.PlaneGeometry(40, 40)
   const floorMat = new THREE.MeshStandardMaterial({
-    color: 0x1a1a1a,
-    roughness: 0.3,
-    metalness: 0.4,
+    color: 0xe8e8e6,
+    roughness: 0.4,
+    metalness: 0.1,
   })
   const floor = new THREE.Mesh(floorGeo, floorMat)
   floor.rotation.x = -Math.PI / 2

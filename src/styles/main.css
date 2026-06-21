@@ -5,11 +5,12 @@
 }
 
 :root {
-  --bg: #0d0d0d;
-  --surface: rgba(255, 255, 255, 0.05);
-  --border: rgba(255, 255, 255, 0.08);
-  --text-primary: #f0f0f0;
-  --text-muted: #888;
+  --bg: #f4f4f2;
+  --surface: rgba(0, 0, 0, 0.04);
+  --surface-raised: #ffffff;
+  --border: rgba(0, 0, 0, 0.09);
+  --text-primary: #111111;
+  --text-muted: #888888;
   --font: 'Inter', system-ui, sans-serif;
 }
 
@@ -35,7 +36,7 @@ body {
 }
 
 /* ════════════════════════════════════════
-   SECTION 1 — Brand landing (100vh)
+   SECTION 1 — Brand landing
 ════════════════════════════════════════ */
 #brand-landing {
   position: relative;
@@ -43,60 +44,121 @@ body {
   display: flex;
   flex-direction: column;
   padding: 2rem;
-  pointer-events: none;
 }
 
-/* ── Brand nav ── */
-#brand-nav {
-  pointer-events: all;
+/* ── Header row: name + menu ── */
+#landing-header {
   display: flex;
-  gap: 0.5rem;
-  align-items: center;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1rem;
 }
 
-.brand-tab {
-  background: rgba(255, 255, 255, 0.06);
-  border: 1px solid var(--border);
-  color: var(--text-muted);
-  padding: 0.5rem 1.25rem;
-  border-radius: 2rem;
-  font-size: 0.8rem;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  cursor: pointer;
-  transition: all 0.2s ease;
-}
-
-.brand-tab:hover {
-  color: var(--text-primary);
-  border-color: var(--brand-accent, #fff);
-}
-
-.brand-tab.active {
-  background: var(--brand-accent, #fff);
-  border-color: var(--brand-accent, #fff);
-  color: #000;
-  font-weight: 700;
-}
-
-/* ── Brand info — bottom left ── */
 #brand-info {
-  margin-top: auto;
-  pointer-events: all;
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
 }
 
 #brand-name {
-  font-size: clamp(3rem, 7vw, 6rem);
+  font-size: clamp(1.8rem, 4vw, 3.5rem);
   font-weight: 700;
   letter-spacing: -0.03em;
   line-height: 1;
-  margin-bottom: 0.5rem;
+  color: var(--text-primary);
 }
 
 #brand-tagline {
   color: var(--text-muted);
-  font-size: 0.95rem;
-  letter-spacing: 0.04em;
+  font-size: 0.85rem;
+  letter-spacing: 0.03em;
+}
+
+/* ── Menu button ── */
+#menu-toggle {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: var(--surface-raised);
+  border: 1px solid var(--border);
+  color: var(--text-primary);
+  padding: 0.55rem 1.1rem;
+  border-radius: 2rem;
+  font-size: 0.8rem;
+  font-family: var(--font);
+  letter-spacing: 0.05em;
+  cursor: pointer;
+  transition: background 0.15s ease, box-shadow 0.15s ease;
+  flex-shrink: 0;
+}
+
+#menu-toggle:hover {
+  background: #fff;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+}
+
+/* ── Brand menu overlay ── */
+#brand-menu {
+  position: absolute;
+  top: 5rem;
+  right: 2rem;
+  z-index: 100;
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(-8px);
+  transition: opacity 0.2s ease, transform 0.2s ease;
+}
+
+#brand-menu.open {
+  opacity: 1;
+  pointer-events: all;
+  transform: translateY(0);
+}
+
+#brand-menu-inner {
+  background: #fff;
+  border: 1px solid var(--border);
+  border-radius: 1.25rem;
+  padding: 0.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  box-shadow: 0 8px 40px rgba(0,0,0,0.12);
+  min-width: 200px;
+}
+
+.brand-option {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.7rem 1rem;
+  border-radius: 0.85rem;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  font-family: var(--font);
+  font-size: 0.88rem;
+  font-weight: 500;
+  color: var(--text-primary);
+  text-align: left;
+  transition: background 0.15s ease;
+  width: 100%;
+}
+
+.brand-option:hover {
+  background: var(--surface);
+}
+
+.brand-option.active {
+  background: var(--surface);
+  font-weight: 700;
+}
+
+.brand-option-logo {
+  width: 28px;
+  height: 28px;
+  object-fit: contain;
+  flex-shrink: 0;
 }
 
 /* ── Brand logo — right side, vertically centered ── */
@@ -116,11 +178,11 @@ body {
   width: clamp(14rem, 24vw, 28rem);
   height: auto;
   object-fit: contain;
-  filter: drop-shadow(0 0 60px color-mix(in srgb, var(--brand-accent, #fff) 40%, transparent));
+  filter: drop-shadow(0 4px 32px rgba(0,0,0,0.12));
   transition: filter 0.4s ease;
 }
 
-/* ── Scroll hint — bottom center ── */
+/* ── Scroll hint ── */
 #scroll-hint {
   position: absolute;
   bottom: 2rem;
@@ -148,7 +210,7 @@ body {
 #models-section {
   min-height: 100vh;
   padding: 4rem 2rem 6rem;
-  background: linear-gradient(to bottom, transparent 0%, rgba(13,13,13,0.97) 8%);
+  background: var(--bg);
 }
 
 /* ── Category nav ── */
@@ -163,22 +225,28 @@ body {
 }
 
 .category-pill {
-  background: transparent;
+  background: var(--surface-raised);
   border: 1px solid var(--border);
   color: var(--text-muted);
   padding: 0.45rem 1.1rem;
   border-radius: 2rem;
   font-size: 0.75rem;
+  font-family: var(--font);
   letter-spacing: 0.06em;
   text-transform: uppercase;
   cursor: pointer;
-  transition: all 0.2s ease;
+  transition: all 0.15s ease;
 }
 
-.category-pill:hover,
-.category-pill.active {
+.category-pill:hover {
   color: var(--text-primary);
-  border-color: rgba(255, 255, 255, 0.4);
+  border-color: rgba(0,0,0,0.25);
+}
+
+.category-pill.active {
+  background: var(--text-primary);
+  border-color: var(--text-primary);
+  color: #fff;
 }
 
 /* ── Model grid ── */
@@ -190,23 +258,23 @@ body {
 
 /* ── Model card ── */
 .model-card {
-  background: rgba(255, 255, 255, 0.05);
+  background: var(--surface-raised);
   border: 1px solid var(--border);
   border-radius: 1rem;
   overflow: hidden;
   cursor: pointer;
-  transition: border-color 0.2s ease, background 0.2s ease;
+  transition: box-shadow 0.2s ease, transform 0.2s ease;
 }
 
 .model-card:hover {
-  background: rgba(255, 255, 255, 0.08);
-  border-color: rgba(255, 255, 255, 0.18);
+  box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+  transform: translateY(-2px);
 }
 
 .card-image-slot {
   width: 100%;
   height: 140px;
-  background: rgba(255, 255, 255, 0.03);
+  background: #f9f9f9;
   border-bottom: 1px solid var(--border);
 }
 
@@ -254,7 +322,7 @@ body {
 
 .year-tag {
   background: var(--text-primary);
-  color: #000;
+  color: #fff;
   border-color: var(--text-primary);
   font-weight: 700;
 }

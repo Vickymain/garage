@@ -4,24 +4,54 @@ export class UIController {
     this.scene = scene
     this.activeBrand = null
     this.activeCategory = null
+    this.menuOpen = false
   }
 
   init() {
-    this._buildBrandNav()
+    this._buildBrandMenu()
+    this._setupMenuToggle()
     this._selectBrand(this.registry.getAll()[0].slug)
   }
 
-  _buildBrandNav() {
-    const nav = document.getElementById('brand-nav')
+  _buildBrandMenu() {
+    const inner = document.getElementById('brand-menu-inner')
     this.registry.getAll().forEach((brand) => {
       const btn = document.createElement('button')
-      btn.className = 'brand-tab'
+      btn.className = 'brand-option'
       btn.dataset.slug = brand.slug
-      btn.textContent = brand.name
-      btn.style.setProperty('--accent', brand.accentColor)
-      btn.addEventListener('click', () => this._selectBrand(brand.slug))
-      nav.appendChild(btn)
+      btn.innerHTML = `
+        <img class="brand-option-logo" src="${brand.logo}" alt="${brand.name}" />
+        <span>${brand.name}</span>
+      `
+      btn.addEventListener('click', () => {
+        this._selectBrand(brand.slug)
+        this._closeMenu()
+      })
+      inner.appendChild(btn)
     })
+  }
+
+  _setupMenuToggle() {
+    const toggle = document.getElementById('menu-toggle')
+    toggle.addEventListener('click', (e) => {
+      e.stopPropagation()
+      this.menuOpen ? this._closeMenu() : this._openMenu()
+    })
+
+    document.addEventListener('click', () => this._closeMenu())
+    document.getElementById('brand-menu').addEventListener('click', (e) => e.stopPropagation())
+  }
+
+  _openMenu() {
+    this.menuOpen = true
+    document.getElementById('brand-menu').classList.add('open')
+    document.getElementById('brand-menu').setAttribute('aria-hidden', 'false')
+  }
+
+  _closeMenu() {
+    this.menuOpen = false
+    document.getElementById('brand-menu').classList.remove('open')
+    document.getElementById('brand-menu').setAttribute('aria-hidden', 'true')
   }
 
   _selectBrand(slug) {
@@ -31,14 +61,13 @@ export class UIController {
     this.activeBrand = brand
     window.scrollTo({ top: 0, behavior: 'smooth' })
 
-    document.querySelectorAll('.brand-tab').forEach((btn) => {
+    document.querySelectorAll('.brand-option').forEach((btn) => {
       btn.classList.toggle('active', btn.dataset.slug === slug)
     })
 
     document.getElementById('brand-name').textContent = brand.name
     document.getElementById('brand-tagline').textContent = brand.tagline
-    const mark = document.getElementById('logo-mark')
-    mark.innerHTML = `<img src="${brand.logo}" alt="${brand.name} logo" />`
+    document.getElementById('logo-mark').innerHTML = `<img src="${brand.logo}" alt="${brand.name} logo" />`
     document.documentElement.style.setProperty('--brand-accent', brand.accentColor)
 
     this._buildCategoryNav(brand)
@@ -67,15 +96,12 @@ export class UIController {
       btn.classList.toggle('active', btn.dataset.slug === slug)
     })
 
-    const panel = document.getElementById('model-panel')
-    panel.innerHTML = cat.models.map((m) => this._renderModelCard(m)).join('')
+    document.getElementById('model-panel').innerHTML =
+      cat.models.map((m) => this._renderModelCard(m)).join('')
   }
 
   _renderModelCard(model) {
-    const tags = model.tags
-      .map((t) => `<span class="model-tag">${t}</span>`)
-      .join('')
-
+    const tags = model.tags.map((t) => `<span class="model-tag">${t}</span>`).join('')
     const stats = model.stats
       .map(
         (s) => `<div class="model-stat">
