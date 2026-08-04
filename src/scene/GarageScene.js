@@ -9,6 +9,9 @@ export class GarageScene {
     this.scene = null
     this.camera = null
     this.animationId = null
+    // Bound once so dispose() can actually detach the same function reference.
+    this._boundResize = this._onResize.bind(this)
+    this._boundAnimate = this._animate.bind(this)
   }
 
   init() {
@@ -38,7 +41,7 @@ export class GarageScene {
     setupLights(this.scene)
     setupEnvironment(this.scene)
 
-    window.addEventListener('resize', this._onResize.bind(this))
+    window.addEventListener('resize', this._boundResize)
   }
 
   start() {
@@ -47,7 +50,7 @@ export class GarageScene {
   }
 
   _animate() {
-    this.animationId = requestAnimationFrame(this._animate.bind(this))
+    this.animationId = requestAnimationFrame(this._boundAnimate)
     this.renderer.render(this.scene, this.camera)
   }
 
@@ -60,6 +63,6 @@ export class GarageScene {
   dispose() {
     cancelAnimationFrame(this.animationId)
     this.renderer.dispose()
-    window.removeEventListener('resize', this._onResize.bind(this))
+    window.removeEventListener('resize', this._boundResize)
   }
 }

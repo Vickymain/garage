@@ -1,8 +1,9 @@
 import * as THREE from 'three'
 
 export function setupEnvironment(scene) {
-  scene.background = new THREE.Color(0xf4f4f2)
-  scene.fog = new THREE.FogExp2(0xf4f4f2, 0.03)
+  // Matches --bg in main.css so the canvas blends into the page background.
+  scene.background = new THREE.Color(0xf2f2f2)
+  scene.fog = new THREE.FogExp2(0xf2f2f2, 0.03)
 
   // Garage floor — light polished surface
   const floorGeo = new THREE.PlaneGeometry(40, 40)
